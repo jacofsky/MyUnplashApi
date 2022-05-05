@@ -1,11 +1,8 @@
 import Router from "express";
+import { getImages } from "../controller/imageController.js";
 
 const route = Router()
 
-route.get('/', (req, res) => {
-    res.status(200).json({
-        msg: 'Ok'
-    })
-})
+route.get('/', getImages)
 
 export default route
