@@ -70,10 +70,7 @@ export const loginUser = async(req = request, res = response) => {
 
         const token = await generateJWT(user._id)
 
-        res.status(200).json({
-            user,
-            token
-        })
+        res.status(200).json({user, token})
         
     } catch (error) {
         console.log(error)
