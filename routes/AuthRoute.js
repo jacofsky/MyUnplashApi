@@ -2,23 +2,23 @@ import Router from "express";
 import { check } from "express-validator";
 
 import { createUser, loginUser } from "../controller/AuthController.js";
-import validarCampos from "../middlewares/validarCampos.js";
-import validarRoles from "../middlewares/validarRoles.js";
+import fieldValidation from "../middlewares/fieldValidation.js";
+import rolsValidation from "../middlewares/rolsValidation.js";
 
 
 const route = Router()
 
 route.post('/register', [
-    check('name', 'El nombre es obligatorio').not().isEmpty(),
-    check('email', 'El email es obligatorio').isEmail(),
-    check('password', 'El contraseña debe tener mas de 6 letras').isLength({min: 6}),
-    validarCampos
+    check('name', 'The name is required').not().isEmpty(),
+    check('email', 'The email is required').isEmail(),
+    check('password', 'The password must have more than 6 characters').isLength({min: 6}),
+    fieldValidation
 ], createUser)
 
 route.post('/login', [
-    check('email', 'El email es obligatorio').isEmail(),
-    check('password', 'La contraseña no es correcta').isLength({min: 6}),
-    validarCampos
+    check('email', 'The email is required').isEmail(),
+    check('password', 'Wrong password').isLength({min: 6}),
+    fieldValidation
 ], loginUser)
 
 export default route

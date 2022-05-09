@@ -1,7 +1,7 @@
 import bcryptjs from "bcryptjs"
 import { request, response } from "express"
 import { generateJWT } from "../helpers/generateJWT.js"
-import Usuario from "../models/User.js"
+import User from "../models/User.js"
 
 export const createUser = async(req = request, res = response) => {
 
@@ -9,31 +9,31 @@ export const createUser = async(req = request, res = response) => {
 
     try {
         const rol = 'USER_ROLE'
-        const usuario = new Usuario({name, email, password, rol})
+        const user = new User({name, email, password, rol})
     
-        const verifyEmail = await Usuario.findOne({email})
+        const verifyEmail = await User.findOne({email})
     
         if (verifyEmail) {
             return res.status(400).json({
-                msg: 'Correo existente'
+                msg: 'Existing mail'
             })
         }
     
     
     
         const salt = await bcryptjs.genSalt()
-        usuario.password = await bcryptjs.hash(password, salt)
+        user.password = await bcryptjs.hash(password, salt)
     
-        await usuario.save()
+        await user.save()
     
-        const token = await generateJWT(usuario._id)
+        const token = await generateJWT(user._id)
         
-        res.status(201).json({usuario, token})
+        res.status(201).json({user, token})
         
     } catch (error) {
         console.log(error)
         res.status(500).json({
-            msg: 'Hable con el administrador'
+            msg: 'Internal Error - Talk to the administrator'
         })
     }
     
@@ -46,17 +46,17 @@ export const loginUser = async(req = request, res = response) => {
     try {
         const {email, password} = req.body
     
-        const user = await Usuario.findOne({email})
+        const user = await User.findOne({email})
 
         if(!user) {
             res.status(400).json({
-                msg: 'Usuario / Password incorrectos'
+                msg: 'Wrong User / Password'
             })
         }
 
         if (!user.state) {
             res.status(400).json({
-                msg: 'Usuario / Password incorrectos'
+                msg: 'Wrong User / Password'
             })
         }
 
@@ -64,7 +64,7 @@ export const loginUser = async(req = request, res = response) => {
 
         if (!validPassword) {
             res.status(400).json({
-                msg: 'Usuario / Password incorrectos'
+                msg: 'Wrong User / Password'
             })
         }
 
@@ -75,7 +75,7 @@ export const loginUser = async(req = request, res = response) => {
     } catch (error) {
         console.log(error)
         res.status(500).json({
-            msg: 'Hable con el administrador'
+            msg: 'Internal Error - Talk to the administrator'
         })
     }
 

@@ -5,6 +5,6 @@ export const connectDB = async() => {
         await mongoose.connect(process.env.MONGO_DB_CNN)
         console.log('BD Online')
     } catch (error) {
-        console.log('Error en la conexion con la conexion a la base de datos')
+        console.log('Failed to connect to database connection')
     }
 }

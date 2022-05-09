@@ -5,24 +5,23 @@ const UserSchema = mongoose.Schema({
 
     name: {
         type: String,
-        required: [true, 'El nombre es obligatorio']
+        required: [true, 'The name is required']
     },
     
     email: {
         type: String,
-        required: [true, 'El email es obligatorio'],
+        required: [true, 'The email is required'],
         unique: true
     },
 
     password: {
         type: String,
-        required: [true, 'La contraseña es obligatorio']
+        required: [true, 'The password is required']
     },
 
     rol: {
         type: String,
         required: true,
-        // revisar aca que peude haber un error !!
         enum: ['ADMIN_ROLE', 'USER_ROLE']
     },
 

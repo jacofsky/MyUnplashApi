@@ -1,7 +1,7 @@
 import { validationResult } from "express-validator"
 
 
-const validarCampos = (req, res, next) => {
+const fieldValidation = (req, res, next) => {
 
     const errors = validationResult(req)
 
@@ -12,4 +12,4 @@ const validarCampos = (req, res, next) => {
     next()
 }
 
-export default validarCampos
+export default fieldValidation
