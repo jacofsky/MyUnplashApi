@@ -1,9 +1,14 @@
-import { model, Schema } from "mongoose";
+import mongoose from "mongoose";
 
-const ImageSchma = Schema({
+const ImageSchma = mongoose.Schema({
     link: {
         type: String,
         required: [true, 'The link is required']
+    },
+    label: {
+        type: String,
+        required: [true, 'The label is required']
+
     },
     state: {
         type: Boolean,
@@ -11,11 +16,11 @@ const ImageSchma = Schema({
         required: true
     },
     user: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: [true, 'The usuario is required']
+        required: [true, 'The user is required']
     }
 })
 
 
-export default model('Image', ImageSchma)
+export default mongoose.model('Image', ImageSchma)

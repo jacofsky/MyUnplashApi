@@ -3,7 +3,6 @@ import { check } from "express-validator";
 
 import { createUser, loginUser } from "../controller/AuthController.js";
 import fieldValidation from "../middlewares/fieldValidation.js";
-import rolsValidation from "../middlewares/rolsValidation.js";
 
 
 const route = Router()

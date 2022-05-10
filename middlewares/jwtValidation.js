@@ -2,7 +2,7 @@ import { request } from "express"
 import jwt from "jsonwebtoken";
 import User from '../models/User.js'
 
-const validarJWT = (req = request, res, next) => {
+const jwtValidation = async(req = request, res, next) => {
 
     const token = req.header('x-token')
 
@@ -16,7 +16,7 @@ const validarJWT = (req = request, res, next) => {
 
         const { uid } = jwt.verify(token, process.env.JWT_SECRET_KEY)
 
-        const user = User.findById(uid)
+        const user = await User.findById(uid)
 
         if (!user) {
             return res.status(401).json({
@@ -24,7 +24,7 @@ const validarJWT = (req = request, res, next) => {
             })
         }
 
-        if (!user.estado) {
+        if (!user.state) {
             return res.status(401).json({
                 msg: 'Invalid Token'
             })
@@ -43,4 +43,4 @@ const validarJWT = (req = request, res, next) => {
 
 }
 
-export default validarJWT
+export default jwtValidation
