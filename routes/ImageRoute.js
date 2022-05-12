@@ -1,6 +1,6 @@
 import Router from "express";
 import { check } from "express-validator";
-import { deleteImage, getByLabelImages, getImages, uploadImage } from "../controller/imageController.js";
+import { deleteImage, getByLabelImages, getImages, uploadImage } from "../controller/ImageController.js";
 import fieldValidation from "../middlewares/fieldValidation.js";
 import jwtValidation from "../middlewares/jwtValidation.js";
 
