@@ -7,7 +7,7 @@ export const generateJWT = (uid = '') => {
 
         const payload = {uid}
         
-        jwt.sign(payload, process.env.JWT_SECRET_KEY, {expiresIn: '4h'}, (err, token) => {
+        jwt.sign(payload, process.env.JWT_SECRET_KEY, {expiresIn: '8h'}, (err, token) => {
             
             if (err) {
                 console.log(err)

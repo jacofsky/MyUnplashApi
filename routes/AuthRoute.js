@@ -1,7 +1,7 @@
 import Router from "express";
 import { check } from "express-validator";
 
-import { createUser, loginUser } from "../controller/AuthController.js";
+import { createUser, loginUser, renewToken } from "../controller/AuthController.js";
 import fieldValidation from "../middlewares/fieldValidation.js";
 
 
@@ -19,5 +19,10 @@ route.post('/login', [
     check('password', 'Wrong password').isLength({min: 6}),
     fieldValidation
 ], loginUser)
+
+route.post('/renew',[
+    check('uid', 'The id is required').isMongoId(),
+    fieldValidation
+], renewToken )
 
 export default route

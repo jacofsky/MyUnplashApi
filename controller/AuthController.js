@@ -81,3 +81,29 @@ export const loginUser = async(req = request, res = response) => {
 
 
 }
+
+export const renewToken = async(req = request, res = response) => {
+
+    try {
+
+        const {uid} = req.body
+
+        const user = User.findById(uid)
+
+        if(!user) {
+            return res.status(400).json({
+                msg: 'Invalid id'
+            })
+        }
+        
+        const token = await generateJWT(uid)
+        res.status(200).json({ token })
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            msg: 'Internal Error - Talk to the administrator'
+        })
+    }
+
+}
