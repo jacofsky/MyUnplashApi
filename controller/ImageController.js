@@ -29,6 +29,33 @@ export const getImages = async(req, res) => {
     }
 }
 
+export const getUserImages = async(req, res) => {
+    try {
+        const {_id} = req.user
+
+        const {limit = 15, skip = 0} = req.query
+
+        const [ count, images ] = await Promise.all([
+            Image.countDocuments({estate: true, user: _id}),
+            Image.find({estate: true, user: _id })
+                .skip(skip)
+                .limit(limit)
+        ])
+    
+    
+        res.status(200).json({
+            count,
+            images
+        })
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            msg: 'Internal Error - Talk to the administrator'
+        })
+    }
+}
+
 export const getByLabelImages = async(req, res) => {
 
     try {
