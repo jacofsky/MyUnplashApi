@@ -49,13 +49,13 @@ export const loginUser = async(req = request, res = response) => {
         const user = await User.findOne({email})
 
         if(!user) {
-            res.status(400).json({
+            return res.status(400).json({
                 msg: 'Wrong User / Password'
             })
         }
 
         if (!user.state) {
-            res.status(400).json({
+            return res.status(400).json({
                 msg: 'Wrong User / Password'
             })
         }
@@ -63,7 +63,7 @@ export const loginUser = async(req = request, res = response) => {
         const validPassword = bcryptjs.compareSync(password, user.password)
 
         if (!validPassword) {
-            res.status(400).json({
+            return res.status(400).json({
                 msg: 'Wrong User / Password'
             })
         }
