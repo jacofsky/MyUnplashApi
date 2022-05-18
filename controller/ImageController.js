@@ -9,8 +9,8 @@ export const getImages = async(req, res) => {
         const {limit = 15, skip = 0} = req.query
 
         const [ count, images ] = await Promise.all([
-            Image.countDocuments({estate: true}),
-            Image.find({estate: true})
+            Image.countDocuments({state: true}),
+            Image.find({state: true})
                 .skip(skip)
                 .limit(limit)
         ])
@@ -36,8 +36,8 @@ export const getUserImages = async(req, res) => {
         const {limit = 15, skip = 0} = req.query
 
         const [ count, images ] = await Promise.all([
-            Image.countDocuments({estate: true, user: _id}),
-            Image.find({estate: true, user: _id })
+            Image.countDocuments({state: true, user: _id}),
+            Image.find({state: true, user: _id })
                 .skip(skip)
                 .limit(limit)
         ])
@@ -63,7 +63,7 @@ export const getByLabelImages = async(req, res) => {
         const {limit = 15, skip = 0} = req.query
         const {search} = req.params
 
-        const query = {estate: true, label: {$regex: `.*${search}.*`, $options: 'i'}}
+        const query = {state: true, label: {$regex: `.*${search}.*`, $options: 'i'}}
 
         const [ count, images ] = await Promise.all([
             Image.countDocuments(query),
