@@ -97,7 +97,7 @@ export const renewToken = async(req = request, res = response) => {
         }
         
         const token = await generateJWT(uid)
-        res.status(200).json({ token })
+        res.status(200).json({ token, user })
 
     } catch (error) {
         console.log(error)
