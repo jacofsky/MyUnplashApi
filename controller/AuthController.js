@@ -88,7 +88,7 @@ export const renewToken = async(req = request, res = response) => {
 
         const {uid} = req.body
 
-        const user = User.findById(uid)
+        const user = await User.findById(uid)
 
         if(!user) {
             return res.status(400).json({
